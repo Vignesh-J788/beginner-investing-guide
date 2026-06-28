@@ -1,0 +1,1708 @@
+cat > /mnt/user-data/outputs/investing_masterguide.html << 'ENDOFFILE'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Beginner's Complete Guide to Investing in India</title>
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --green: #22c55e;
+    --green-dark: #16a34a;
+    --green-bg: #f0fdf4;
+    --green-border: #bbf7d0;
+    --blue: #3b82f6;
+    --blue-bg: #eff6ff;
+    --blue-border: #bfdbfe;
+    --amber: #f59e0b;
+    --amber-bg: #fffbeb;
+    --amber-border: #fde68a;
+    --red: #ef4444;
+    --red-bg: #fef2f2;
+    --red-border: #fecaca;
+    --purple: #8b5cf6;
+    --purple-bg: #f5f3ff;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --text-light: #777;
+    --border: #e0e0e0;
+    --bg: #f8f8f6;
+    --page-bg: #ffffff;
+    --sidebar-bg: #1a1a2e;
+    --sidebar-text: #c8c8d0;
+    --sidebar-hover: #22c55e;
+    --sidebar-active-bg: #16213e;
+  }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+  }
+
+  /* ── HAMBURGER BUTTON ── */
+  #menuBtn {
+    position: fixed;
+    top: 18px; left: 18px;
+    z-index: 9999;
+    background: var(--sidebar-bg);
+    border: none;
+    border-radius: 8px;
+    width: 44px; height: 44px;
+    cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 5px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    transition: background 0.2s;
+  }
+  #menuBtn:hover { background: #16213e; }
+  #menuBtn span {
+    display: block;
+    width: 22px; height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  #menuBtn.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  #menuBtn.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  #menuBtn.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── SIDEBAR ── */
+  #sidebar {
+    position: fixed;
+    top: 0; left: -320px;
+    width: 300px; height: 100vh;
+    background: var(--sidebar-bg);
+    z-index: 9998;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.4);
+    padding-bottom: 40px;
+  }
+  #sidebar.open { left: 0; }
+
+  #sidebar-header {
+    padding: 24px 20px 18px;
+    border-bottom: 1px solid #2a2a4a;
+    background: #16213e;
+    position: sticky; top: 0; z-index: 2;
+  }
+  #sidebar-header h2 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  #sidebar-header p {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 11px;
+    color: #888;
+    font-style: normal;
+  }
+
+  .sidebar-section-label {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #555;
+    padding: 18px 20px 6px;
+  }
+
+  #sidebar a {
+    display: block;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    padding: 9px 20px 9px 24px;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    line-height: 1.4;
+  }
+  #sidebar a:hover { color: var(--green); background: rgba(34,197,94,0.07); border-left-color: rgba(34,197,94,0.4); }
+  #sidebar a.active { color: var(--green); background: var(--sidebar-active-bg); border-left-color: var(--green); font-weight: 600; }
+
+  /* ── OVERLAY ── */
+  #overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9997;
+  }
+  #overlay.show { display: block; }
+
+  /* ── MAIN CONTENT ── */
+  #main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 48px 80px;
+  }
+
+  /* ── PDF PAGE FEEL ── */
+  .page {
+    background: var(--page-bg);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+    border-radius: 2px;
+    padding: 56px 64px;
+    margin-bottom: 32px;
+    scroll-margin-top: 24px;
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    text-align: center;
+    padding: 80px 64px;
+    border-top: 8px solid var(--green);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .cover-tag {
+    display: inline-block;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .cover h1 {
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #111;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+  .cover h1 em { color: var(--green-dark); font-style: normal; }
+  .cover .subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .cover-stats {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .cover-stat .num {
+    display: block;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--green-dark);
+  }
+  .cover-stat .lbl {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── CHAPTER HEADING ── */
+  .chapter-label {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 10px;
+  }
+  .page h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .chapter-line {
+    width: 48px; height: 3px;
+    background: var(--green);
+    border-radius: 2px;
+    margin: 16px 0 28px;
+  }
+
+  /* ── BODY TEXT ── */
+  .page p {
+    margin-bottom: 18px;
+    color: var(--text);
+  }
+  .page p:last-child { margin-bottom: 0; }
+
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  /* ── SECTION TITLES ── */
+  .page h3 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    margin: 32px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page h4 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+    margin: 22px 0 8px;
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 22px 0;
+    border-left: 4px solid;
+  }
+  .callout-title {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .callout p { margin-bottom: 8px; font-size: 15.5px; }
+  .callout p:last-child { margin-bottom: 0; }
+  .callout.green { background: var(--green-bg); border-color: var(--green); }
+  .callout.green .callout-title { color: var(--green-dark); }
+  .callout.blue  { background: var(--blue-bg);  border-color: var(--blue); }
+  .callout.blue  .callout-title { color: #1d4ed8; }
+  .callout.amber { background: var(--amber-bg); border-color: var(--amber); }
+  .callout.amber .callout-title { color: #92400e; }
+  .callout.red   { background: var(--red-bg);   border-color: var(--red); }
+  .callout.red   .callout-title { color: #991b1b; }
+  .callout.purple{ background: var(--purple-bg); border-color: var(--purple); }
+  .callout.purple .callout-title { color: #5b21b6; }
+
+  /* ── ANALOGY BOXES ── */
+  .analogy {
+    background: #fafaf8;
+    border: 1px solid #e8e8e0;
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #444;
+    font-size: 15.5px;
+  }
+  .analogy strong { font-style: normal; color: #222; }
+
+  /* ── COMPARISON TABLE ── */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    margin: 20px 0;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .compare-table th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  .compare-table th:first-child { border-radius: 0; }
+  .compare-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:nth-child(even) td { background: #fafafa; }
+  .compare-table .highlight td { background: var(--green-bg); }
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .badge.g { background: var(--green-bg); color: var(--green-dark); border: 1px solid var(--green-border); }
+  .badge.r { background: var(--red-bg); color: #991b1b; border: 1px solid var(--red-border); }
+  .badge.a { background: var(--amber-bg); color: #92400e; border: 1px solid var(--amber-border); }
+  .badge.b { background: var(--blue-bg); color: #1d4ed8; border: 1px solid var(--blue-border); }
+
+  /* ── STEPS LIST ── */
+  .steps-list { list-style: none; margin: 16px 0; }
+  .steps-list li {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .steps-list .step-num {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-dark);
+    background: var(--green-bg);
+    border: 1.5px solid var(--green-border);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .steps-list .step-body { flex: 1; }
+  .steps-list .step-body strong { display: block; font-family: 'Helvetica Neue', sans-serif; font-size: 15px; margin-bottom: 3px; }
+  .steps-list .step-body p { margin: 0; font-size: 15px; color: var(--text-muted); }
+
+  /* ── BULLET LIST ── */
+  .bullet-list { list-style: none; margin: 14px 0; padding: 0; }
+  .bullet-list li {
+    padding: 6px 0 6px 22px;
+    position: relative;
+    font-size: 16px;
+    color: var(--text);
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .bullet-list li:last-child { border-bottom: none; }
+  .bullet-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* ── MINI CARDS ── */
+  .card-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .mini-card {
+    background: #fafaf8;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .mini-card.green-card { border-left: 4px solid var(--green); }
+  .mini-card.red-card   { border-left: 4px solid var(--red); }
+  .mini-card.blue-card  { border-left: 4px solid var(--blue); }
+  .mini-card.amber-card { border-left: 4px solid var(--amber); }
+  .mini-card h4 { font-family: 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .mini-card p  { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 1.6; }
+
+  /* ── COMPOUND TABLE ── */
+  .compound-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    margin: 20px 0;
+  }
+  .compound-table th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .compound-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .compound-table tr:nth-child(even) td { background: #fafafa; }
+  .compound-table .val { color: var(--green-dark); font-weight: 700; }
+  .compound-table .gain { color: #1d4ed8; font-weight: 600; }
+
+  /* ── QUIZ ── */
+  .quiz-block {
+    background: #fafaf8;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+  }
+  .quiz-q {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 14px;
+  }
+  .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-opt {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #333;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.18s;
+  }
+  .quiz-opt:hover { border-color: var(--green); color: #111; }
+  .quiz-opt.correct { background: var(--green-bg); border-color: var(--green); color: var(--green-dark); font-weight: 600; }
+  .quiz-opt.wrong   { background: var(--red-bg);   border-color: var(--red);   color: #991b1b; }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-feedback {
+    margin-top: 12px;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', sans-serif;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: none;
+    line-height: 1.6;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: var(--green-bg); color: var(--green-dark); border: 1px solid var(--green-border); }
+  .quiz-feedback.no { background: var(--red-bg); color: #991b1b; border: 1px solid var(--red-border); }
+
+  /* ── PROGRESS ── */
+  .progress-wrap {
+    background: #e5e7eb;
+    border-radius: 20px;
+    height: 7px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 32px; margin: 20px 0; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px; top: 0; bottom: 0;
+    width: 2px; background: var(--green-border);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -27px; top: 6px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px var(--green-border);
+  }
+  .timeline-item h4 {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 5px;
+  }
+  .timeline-item p { font-size: 15px; color: var(--text-muted); margin: 0; }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    background: var(--amber-bg);
+    border: 1px solid var(--amber-border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    font-family: 'Helvetica Neue', sans-serif;
+    color: #78350f;
+    margin-top: 16px;
+  }
+
+  /* ── DO / DON'T BOX ── */
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .do-box, .dont-box {
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .do-box { background: var(--green-bg); border: 1px solid var(--green-border); }
+  .dont-box { background: var(--red-bg); border: 1px solid var(--red-border); }
+  .do-box h4 { color: var(--green-dark); font-family: 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .dont-box h4 { color: #991b1b; font-family: 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .do-box ul, .dont-box ul { list-style: none; padding: 0; }
+  .do-box li, .dont-box li { font-size: 14px; padding: 4px 0 4px 18px; position: relative; }
+  .do-box li::before { content: '✓'; position: absolute; left: 0; color: var(--green-dark); font-weight: 700; }
+  .dont-box li::before { content: '✗'; position: absolute; left: 0; color: #991b1b; font-weight: 700; }
+  .do-box li { color: #166534; }
+  .dont-box li { color: #991b1b; }
+
+  /* ── PAGE NUMBER ── */
+  .page-num {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 11px;
+    color: #bbb;
+    text-align: right;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+    letter-spacing: 1px;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    #main { padding: 60px 16px 60px; }
+    .page { padding: 36px 24px; }
+    .cover { padding: 60px 24px; }
+    .cover h1 { font-size: 28px; }
+    .card-row { grid-template-columns: 1fr; }
+    .do-dont { grid-template-columns: 1fr; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 9px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hamburger Button -->
+<button id="menuBtn" onclick="toggleMenu()" aria-label="Open navigation menu">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- Overlay -->
+<div id="overlay" onclick="closeMenu()"></div>
+
+<!-- Sidebar -->
+<nav id="sidebar">
+  <div id="sidebar-header">
+    <h2>📈 Investing Guide</h2>
+    <p>Beginner's Complete Handbook</p>
+  </div>
+
+  <div class="sidebar-section-label">Getting Started</div>
+  <a href="#cover">Cover & Introduction</a>
+  <a href="#ch1">Ch 1 — What is Money, Really?</a>
+  <a href="#ch2">Ch 2 — What is Inflation?</a>
+  <a href="#ch3">Ch 3 — How the Stock Market Works</a>
+  <a href="#ch4">Ch 4 — BSE, NSE, Sensex & Nifty</a>
+
+  <div class="sidebar-section-label">Core Concepts</div>
+  <a href="#ch5">Ch 5 — What is a Mutual Fund?</a>
+  <a href="#ch6">Ch 6 — What is a SIP?</a>
+  <a href="#ch7">Ch 7 — SIP vs Buying Stocks</a>
+  <a href="#ch8">Ch 8 — Power of Compounding</a>
+
+  <div class="sidebar-section-label">Tools & Platforms</div>
+  <a href="#ch9">Ch 9 — What is Zerodha?</a>
+  <a href="#ch10">Ch 10 — Kite vs Coin</a>
+  <a href="#ch11">Ch 11 — Demat & Trading Account</a>
+  <a href="#ch12">Ch 12 — How to Read a Mutual Fund Fact Sheet</a>
+
+  <div class="sidebar-section-label">Smart Investing</div>
+  <a href="#ch13">Ch 13 — Emergency Fund & Budgeting</a>
+  <a href="#ch14">Ch 14 — How to Set Financial Goals</a>
+  <a href="#ch15">Ch 15 — Gold vs Stocks vs FD vs Real Estate</a>
+  <a href="#ch16">Ch 16 — Taxes on Investments (LTCG & STCG)</a>
+
+  <div class="sidebar-section-label">The Human Side</div>
+  <a href="#ch17">Ch 17 — Common Beginner Mistakes</a>
+  <a href="#ch18">Ch 18 — Recommended Funds</a>
+  <a href="#ch19">Ch 19 — How to Start Your SIP</a>
+  <a href="#ch20">Ch 20 — Your Roadmap as a Student</a>
+  <a href="#quiz">Final Quiz</a>
+</nav>
+
+<!-- Main Content -->
+<main id="main">
+
+<!-- ═══════════════════════════ COVER ═══════════════════════════ -->
+<div class="page cover" id="cover">
+  <div class="cover-tag">Complete Beginner's Handbook · India Edition · 2025–26</div>
+  <h1>The Complete Guide to<br><em>Investing in India</em></h1>
+  <p class="subtitle">For the curious student who wants to understand money, stop being afraid of it, and actually start building wealth — explained like a friend would, not a banker.</p>
+  <div class="cover-stats">
+    <div class="cover-stat"><span class="num">20</span><span class="lbl">Chapters</span></div>
+    <div class="cover-stat"><span class="num">10+</span><span class="lbl">Topics</span></div>
+    <div class="cover-stat"><span class="num">₹500</span><span class="lbl">Min. to Start</span></div>
+    <div class="cover-stat"><span class="num">12%</span><span class="lbl">Avg. CAGR</span></div>
+  </div>
+  <div class="page-num">THE BEGINNER'S COMPLETE INVESTING GUIDE · INDIA</div>
+</div>
+
+<!-- ═══════════════════════════ CH 1 ═══════════════════════════ -->
+<div class="page" id="ch1">
+  <div class="chapter-label">Chapter 1</div>
+  <h2>What is Money, Really?</h2>
+  <div class="chapter-line"></div>
+
+  <p>Before we talk about investing, let's talk about something even more basic — what is money? You use it every day, but have you ever actually thought about what it <em>is</em>?</p>
+
+  <p>Money is basically a tool. A really useful tool that lets us exchange things without awkward barter trades. Imagine if you wanted a pizza and the pizza shop wanted chemistry notes — good luck making that trade work. Money steps in and says, "No problem. Give me this number in exchange for your work, and you can use that number to get anything else you want."</p>
+
+  <div class="analogy">
+    <strong>Simple analogy:</strong> Money is like a coupon that society agrees has value. Your salary is the shop giving you coupons in exchange for your work. You then spend those coupons (money) on things you need. Investing is just teaching those coupons to multiply on their own while you sleep.
+  </div>
+
+  <p>Here's the important thing most people miss: <strong>money sitting still is actually dying</strong>. Not literally, but functionally. Because of something called inflation (which we'll get into deeply in Chapter 2), the value of money falls every year. ₹100 today will buy less than ₹100 bought five years ago. So leaving money under your mattress — or worse, only in a savings account — means you're slowly losing your buying power without realizing it.</p>
+
+  <h3>Why People Fear Investing</h3>
+  <p>Most beginners are terrified of investing because they think it's for rich people, it's complicated, or it's gambling. None of these are true. Investing, when done with patience and the right knowledge, is one of the most boring and predictable things you can do with money. The stock market has crashed dozens of times in Indian history. Every single time, it recovered and went higher than before. Every. Single. Time.</p>
+
+  <div class="callout green">
+    <div class="callout-title">💡 The Key Idea of This Entire Guide</div>
+    <p>Your goal as a beginner is not to get rich quick. It's to start early, invest regularly, and let time do the heavy lifting. That's it. Everything else in this guide is just filling in the details of how to do that smartly.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 1 · WHAT IS MONEY, REALLY?</div>
+</div>
+
+<!-- ═══════════════════════════ CH 2 ═══════════════════════════ -->
+<div class="page" id="ch2">
+  <div class="chapter-label">Chapter 2</div>
+  <h2>What is Inflation?<br>And Why It's Secretly Eating Your Money</h2>
+  <div class="chapter-line"></div>
+
+  <p>Okay, here is the most important thing you will learn today. More important than stocks, mutual funds, or SIPs. It's called <strong>inflation</strong>, and understanding it will change the way you look at money forever.</p>
+
+  <p>Inflation simply means: <strong>things get more expensive over time</strong>. Every year, the same items — groceries, petrol, movie tickets, college fees — cost a little more than they did last year. This happens because of how economies work. More money circulates, demand rises, and prices rise with it.</p>
+
+  <div class="analogy">
+    <strong>Real example from India:</strong> In 2009, gold was around ₹14,000 per 10 grams. By 2025, it crossed ₹1,00,000. That's not gold getting more magical — that's your rupee getting weaker. It now takes more rupees to buy the same thing. That erosion of your currency's buying power is inflation.
+  </div>
+
+  <h3>India's Inflation Rate</h3>
+  <p>India's average inflation (measured by something called the Consumer Price Index or CPI) has historically hovered around 5–6% per year. The RBI (Reserve Bank of India) tries to keep it around 4%. In 2025, India's CPI inflation was trending around 4–5%. That sounds small, right? Let's see what it actually does to your money.</p>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠️ The Math That Shocks Everyone</div>
+    <p>If inflation is 6% per year, then in just 12 years, your ₹100 will only be able to buy what ₹50 buys today. You've lost half your purchasing power without spending a single rupee. Your money halved in value <em>while sitting still</em>.</p>
+  </div>
+
+  <h3>Why Your Savings Account Is Not Enough</h3>
+  <p>Your savings account at a big bank like SBI or HDFC gives you around 3–3.5% interest per year. Inflation is running at 5–6%. Do the math: 3.5% earned − 6% inflation = <strong>you are losing 2.5% real value every year</strong>. Your bank balance goes up in number, but you can buy less with it. This is the cruel magic trick inflation plays on passive savers.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Investment Type</th><th>Typical Return (India)</th><th>Inflation (avg)</th><th>Real Return</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Savings Account</td><td>3–3.5%</td><td>~5.5%</td><td class="badge r">−2% (losing!)</td></tr>
+      <tr><td>Fixed Deposit (FD)</td><td>6.5–7.5%</td><td>~5.5%</td><td class="badge a">+1% (barely)</td></tr>
+      <tr><td>Gold (long term)</td><td>~8–10%</td><td>~5.5%</td><td class="badge a">+3–4%</td></tr>
+      <tr class="highlight"><td>Nifty 50 Index Fund (long term)</td><td>~12–14%</td><td>~5.5%</td><td class="badge g">+6–8% real wealth!</td></tr>
+    </tbody>
+  </table>
+
+  <p>This is why investing in equities (stocks/mutual funds) matters so much. Not because it's exciting. Because it's the only thing that reliably beats inflation over the long run and actually grows your real wealth.</p>
+
+  <div class="callout green">
+    <div class="callout-title">💡 Remember This Forever</div>
+    <p>Not investing is not "playing it safe." Not investing means you're guaranteed to slowly lose money to inflation. The risk of NOT investing is just as real as the risk of investing badly.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 2 · WHAT IS INFLATION?</div>
+</div>
+
+<!-- ═══════════════════════════ CH 3 ═══════════════════════════ -->
+<div class="page" id="ch3">
+  <div class="chapter-label">Chapter 3</div>
+  <h2>How the Stock Market Actually Works</h2>
+  <div class="chapter-line"></div>
+
+  <p>Most people think the stock market is this mysterious beast where traders in suits scream at each other and fortunes are won or lost in seconds. While some of that does happen in the "trading" world, for the rest of us — the long-term investors — the stock market is much simpler and far less dramatic.</p>
+
+  <h3>What is a Stock (Share)?</h3>
+  <p>When a company wants to grow — let's say Zomato wants to expand to 100 new cities — it needs a lot of money. It could take a bank loan, but bank loans are expensive. Instead, it can sell tiny pieces of ownership to the public. These tiny pieces are called <strong>shares</strong> (or stocks).</p>
+
+  <div class="analogy">
+    <strong>Pizza analogy:</strong> Imagine a pizza cut into 1,000 slices. The whole pizza is worth ₹10,000. Each slice is worth ₹10. You can buy one slice for ₹10 and now you own 0.1% of the pizza. If the pizza becomes more popular and is now worth ₹20,000, your slice is now worth ₹20. You made ₹10 profit. That's exactly how stocks work, but the pizza is a company.
+  </div>
+
+  <p>When you buy a share of Infosys, you literally own a tiny part of Infosys. You're not lending them money — you're owning a piece. As Infosys grows, earns more profit, and becomes more valuable, your share becomes worth more too. That's the basic magic of equity investing.</p>
+
+  <h3>How Does a Share Price Move?</h3>
+  <p>A share price moves based on <strong>supply and demand</strong>, just like any market. If lots of people want to buy Reliance shares and few people want to sell, the price goes up. If bad news hits and everyone wants to sell, the price goes down. The factors that drive this buying and selling include:</p>
+
+  <ul class="bullet-list">
+    <li><strong>Company performance</strong> — Good quarterly results → price goes up. Bad results → price drops.</li>
+    <li><strong>Economic news</strong> — RBI cuts interest rates, market generally goes up (cheaper money = more business).</li>
+    <li><strong>Global events</strong> — War, pandemic, US Federal Reserve decisions — all affect Indian markets too.</li>
+    <li><strong>Investor sentiment</strong> — Sometimes the market is purely emotional. Fear makes people sell, greed makes people buy, both irrationally.</li>
+    <li><strong>Government policy</strong> — New budget announcements, new laws, tax changes all affect sectors differently.</li>
+  </ul>
+
+  <h3>What is an IPO?</h3>
+  <p>IPO stands for <strong>Initial Public Offering</strong>. This is when a private company decides to go public for the first time — selling shares to regular people like you and me. Before an IPO, only the company founders and private investors own shares. After the IPO, anyone can buy. Zomato, Nykaa, LIC — all went public through IPOs in recent years.</p>
+
+  <div class="callout blue">
+    <div class="callout-title">📌 Key Insight</div>
+    <p>You don't need to understand every company's business to invest successfully. That's what mutual funds are for — a professional manages a basket of companies so you don't have to.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 3 · HOW THE STOCK MARKET WORKS</div>
+</div>
+
+<!-- ═══════════════════════════ CH 4 ═══════════════════════════ -->
+<div class="page" id="ch4">
+  <div class="chapter-label">Chapter 4</div>
+  <h2>BSE, NSE, Sensex &amp; Nifty — Decoded Simply</h2>
+  <div class="chapter-line"></div>
+
+  <p>Every time you hear "the market went up 300 points today" on the news — what does that actually mean? Let's decode all the terms that people use when talking about the Indian stock market.</p>
+
+  <h3>BSE — Bombay Stock Exchange</h3>
+  <p>Founded in <strong>1875</strong>, the BSE is Asia's oldest stock exchange. It is located on Dalal Street in Mumbai (yes, like Wall Street in New York). More than 5,600 companies are listed on the BSE — meaning their shares are available for buying and selling here. The BSE's benchmark index is called the <strong>Sensex</strong>.</p>
+
+  <h3>NSE — National Stock Exchange</h3>
+  <p>Founded in <strong>1992</strong>, the NSE is India's largest stock exchange by trading volume. It was the first fully electronic exchange in India — no physical paper or shouting traders. The NSE handles more trades per day than the BSE. Its benchmark index is called the <strong>Nifty 50</strong>.</p>
+
+  <div class="callout blue">
+    <div class="callout-title">🤔 Wait — Two Exchanges? Isn't That Confusing?</div>
+    <p>Not really. Think of BSE and NSE as two different supermarkets that sell mostly the same products. Most major companies are listed on both. Prices are nearly identical on both because the same buyers and sellers operate on both. For your purposes as a beginner investor, you don't need to choose — Zerodha gives you access to both.</p>
+  </div>
+
+  <h3>What is the Sensex?</h3>
+  <p>The Sensex is a single number that represents the combined performance of the top <strong>30 companies</strong> listed on the BSE. Companies like Reliance, HDFC Bank, Infosys, TCS, Hindustan Unilever. When the Sensex is "up 500 points," it means these 30 companies as a whole became more valuable today.</p>
+
+  <div class="analogy">
+    <strong>Cricket analogy:</strong> Think of Sensex as the team run rate. You don't need to know every player's individual score to know how the team is doing — the run rate tells you. Similarly, Sensex tells you how India's biggest 30 companies are performing overall.
+  </div>
+
+  <h3>What is the Nifty 50?</h3>
+  <p>Nifty is the NSE's version of Sensex. "Nifty" comes from <em>National + Fifty</em>. It tracks the top <strong>50 companies</strong> listed on the NSE — covering sectors like banking, IT, pharma, FMCG, energy, and automobiles. Because it includes 50 companies instead of 30, Nifty is slightly more diversified and is the more popular index for mutual fund benchmarks and derivatives trading.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Feature</th><th>Sensex (BSE)</th><th>Nifty 50 (NSE)</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Exchange</td><td>Bombay Stock Exchange</td><td>National Stock Exchange</td></tr>
+      <tr><td>Founded</td><td>1875</td><td>1992</td></tr>
+      <tr><td>Companies tracked</td><td>30</td><td>50</td></tr>
+      <tr><td>Base year</td><td>1978–79</td><td>1995</td></tr>
+      <tr><td>Popular for</td><td>General market reference</td><td>Mutual funds, F&O trading</td></tr>
+      <tr><td>Historical CAGR (~20 yrs)</td><td>~12–14%</td><td>~12–14%</td></tr>
+    </tbody>
+  </table>
+
+  <h3>What Moves the Market Up or Down?</h3>
+  <ul class="bullet-list">
+    <li><strong>RBI interest rate decisions</strong> — When RBI cuts rates, businesses borrow cheaper and grow faster → markets go up</li>
+    <li><strong>GDP growth data</strong> — Strong economic growth → corporate profits rise → market rises</li>
+    <li><strong>US Federal Reserve decisions</strong> — Yes, America's central bank affects India too. Global money flows in or out</li>
+    <li><strong>Union Budget</strong> — Government tax and spending decisions hugely impact specific sectors</li>
+    <li><strong>Geopolitical events</strong> — Wars, elections, oil price shocks all create uncertainty → markets fall temporarily</li>
+    <li><strong>Company results</strong> — When big companies report quarterly earnings, prices move accordingly</li>
+  </ul>
+
+  <div class="callout green">
+    <div class="callout-title">💡 The Beginner's Takeaway</div>
+    <p>You don't need to understand all of this in detail right now. Just know that markets go up and down constantly in the short term, but the long-term trend of both Sensex and Nifty has always been upward. Over any 7-year period in history, the Nifty 50 has never given a negative return to a patient investor.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 4 · BSE, NSE, SENSEX & NIFTY</div>
+</div>
+
+<!-- ═══════════════════════════ CH 5 ═══════════════════════════ -->
+<div class="page" id="ch5">
+  <div class="chapter-label">Chapter 5</div>
+  <h2>What is a Mutual Fund?<br>The Easiest Way to Enter the Market</h2>
+  <div class="chapter-line"></div>
+
+  <p>Here's a scenario. You want to invest in the stock market. But you have ₹500, not ₹50,000. And you have no idea which company to pick. And you have college exams coming up. This is exactly why mutual funds were invented.</p>
+
+  <h3>The Simple Explanation</h3>
+  <p>A mutual fund is a big pool of money contributed by thousands of investors like you. A professional fund manager takes this pool and invests it across many different companies. Everyone who contributed gets a share of the returns — proportional to how much they put in.</p>
+
+  <div class="analogy">
+    <strong>The group lunch analogy:</strong> Imagine ten friends want to try five different restaurants but no one can afford all five individually. So they pool money together, order from all five restaurants, and share the food. Everyone gets exposure to all five restaurants for the price of one. That's a mutual fund — you pool money with thousands of others and get exposure to hundreds of companies for ₹500.
+  </div>
+
+  <h3>Key Terms You Need to Know</h3>
+  <h4>NAV — Net Asset Value</h4>
+  <p>The price of one unit of a mutual fund. If NAV is ₹50 and you invest ₹500, you get 10 units. When the NAV rises to ₹70, your 10 units are now worth ₹700. You made ₹200 profit.</p>
+
+  <h4>Direct vs Regular Plans</h4>
+  <p>This is extremely important. When you buy a mutual fund through a broker or agent, they take a commission. This cuts into your returns. This is called a <strong>Regular Plan</strong>. When you buy directly from the fund house or via Coin (Zerodha), no one takes a cut. This is a <strong>Direct Plan</strong>. Over 20 years, the difference in returns can be lakhs of rupees. Always, always choose Direct.</p>
+
+  <h4>Growth vs IDCW (Dividend) Option</h4>
+  <p>Growth option reinvests all profits back into the fund — your money compounds faster. IDCW (formerly called Dividend) pays out some profits periodically — but taxed at your slab rate, which is bad. For wealth-building, always choose <strong>Growth</strong>.</p>
+
+  <h3>Types of Mutual Funds (Simplified)</h3>
+  <ul class="bullet-list">
+    <li><strong>Equity Funds</strong> — Invest primarily in stocks. Higher risk, higher potential return. Best for 5+ year goals.</li>
+    <li><strong>Debt Funds</strong> — Invest in government bonds and fixed income securities. Lower risk, stable returns. Good for 1–3 year goals.</li>
+    <li><strong>Hybrid Funds</strong> — Mix of equity and debt. Balanced risk. Good for medium-term goals.</li>
+    <li><strong>Index Funds</strong> — Simply copy a market index (Nifty 50, Sensex). No active management. Lowest costs. <em>Best for beginners.</em></li>
+    <li><strong>ELSS (Tax Saving Funds)</strong> — Equity funds with a 3-year lock-in. You get tax deduction under Section 80C. Good if you need to save tax.</li>
+  </ul>
+
+  <div class="callout green">
+    <div class="callout-title">💡 For Most Beginners: Start Here</div>
+    <p>A Nifty 50 Index Fund (Direct, Growth). It's the simplest, cheapest, most proven starting point. You're essentially buying a tiny piece of all 50 top Indian companies with one fund. No stock-picking knowledge needed. No stress about which company to choose.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 5 · WHAT IS A MUTUAL FUND?</div>
+</div>
+
+<!-- ═══════════════════════════ CH 6 ═══════════════════════════ -->
+<div class="page" id="ch6">
+  <div class="chapter-label">Chapter 6</div>
+  <h2>What is a SIP?<br>The Smartest Habit for Building Wealth</h2>
+  <div class="chapter-line"></div>
+
+  <p>You've now understood what a mutual fund is. A SIP is simply how you invest in one regularly. SIP stands for <strong>Systematic Investment Plan</strong>. In plain English: invest a fixed amount every month, automatically, without thinking about it.</p>
+
+  <h3>How It Works</h3>
+  <p>You tell your mutual fund: "Every 5th of the month, take ₹1,000 from my bank account and invest it in UTI Nifty 50 Index Fund." And that's it. On the 5th of every month, automatically, ₹1,000 gets invested. You don't have to remember, you don't have to log in, you don't have to think about whether the market is high or low.</p>
+
+  <div class="analogy">
+    <strong>The electricity bill analogy:</strong> Your phone bill is debited automatically every month. You don't think about it, you just set it up once. A SIP is the same — you set it up once, and wealth gets built automatically every month while you focus on your studies or career.
+  </div>
+
+  <h3>Why SIP is Better Than Lump Sum for Beginners</h3>
+  <p>Imagine you receive ₹12,000 and you want to invest it. Option A: Invest all ₹12,000 in January. Option B: Invest ₹1,000 each month for 12 months. What happens if the market crashes in February? With Option A, you're immediately deep in the red. With Option B (SIP), you're actually buying MORE units when prices are cheap in February, March, April — and benefiting when prices recover.</p>
+
+  <p>This automatic buying at different price levels is called <strong>Rupee Cost Averaging</strong>. It's a beautiful mechanism that removes the need to "time the market" (which even experts can't do reliably).</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Month</th><th>NAV (Price/unit)</th><th>SIP Amount</th><th>Units Bought</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>January</td><td>₹100</td><td>₹1,000</td><td>10 units</td></tr>
+      <tr><td>February (market fell)</td><td>₹80</td><td>₹1,000</td><td>12.5 units</td></tr>
+      <tr><td>March (fell more)</td><td>₹70</td><td>₹1,000</td><td>14.3 units</td></tr>
+      <tr><td>April (recovery)</td><td>₹90</td><td>₹1,000</td><td>11.1 units</td></tr>
+      <tr class="highlight"><td colspan="2"><strong>Total invested: ₹4,000</strong></td><td colspan="2"><strong>Total units: 47.9 (avg cost ₹83.5, not ₹100!)</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p>See how you automatically got a lower average cost because you kept investing even when prices fell? That's the power of SIP. The market downturn worked <em>in your favour</em>.</p>
+
+  <div class="callout green">
+    <div class="callout-title">💡 The SIP Mindset Shift</div>
+    <p>Most beginners panic when the market falls and stop their SIP. This is the biggest mistake you can make. When your SIP runs during a market fall, you're buying more units at cheaper prices. Think of it as a sale — you'd be happy to buy more things at a 20% discount, right? Market crashes are a 20–30% discount on future wealth. Keep investing.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 6 · WHAT IS A SIP?</div>
+</div>
+
+<!-- ═══════════════════════════ CH 7 ═══════════════════════════ -->
+<div class="page" id="ch7">
+  <div class="chapter-label">Chapter 7</div>
+  <h2>SIP in Mutual Funds vs Buying Individual Stocks</h2>
+  <div class="chapter-line"></div>
+
+  <p>People often ask: "Why invest through a mutual fund? Why not just buy stocks directly?" It's a fair question. Both approaches have their place, but for a beginner, the difference is massive.</p>
+
+  <div class="card-row">
+    <div class="mini-card green-card">
+      <h4>SIP in Mutual Fund</h4>
+      <p>Your money is spread across 50–100 companies. One company failing doesn't hurt you much. A professional manages it. You need zero research. You can start with ₹500. Low stress, high consistency.</p>
+    </div>
+    <div class="mini-card blue-card">
+      <h4>Buying Individual Stocks</h4>
+      <p>You pick specific companies. Huge potential upside if you pick right. But if one company goes bankrupt, you can lose everything in that position. Requires hours of research. High stress.</p>
+    </div>
+  </div>
+
+  <h3>The Diversification Principle</h3>
+  <p>Here's a powerful idea: don't put all your eggs in one basket. If you invest all your money in one company and that company fails (think Satyam Computers scandal, or Yes Bank crisis), you lose everything. But if you're invested across 50 companies and one fails, your total loss is only 2% of your portfolio.</p>
+
+  <p>Mutual funds give you automatic, instant diversification. An index fund like Nifty 50 gives you exposure to companies like Reliance, HDFC Bank, Infosys, TCS, ITC, Maruti, Sun Pharma — all at once. No single company can wipe you out.</p>
+
+  <h3>When Does Buying Individual Stocks Make Sense?</h3>
+  <p>Stock picking makes sense when you have: (a) substantial knowledge of the company and industry, (b) time to follow company results every quarter, (c) emotional discipline not to panic-sell during crashes, and (d) already have a solid mutual fund base. For most students in their first 1–3 years of investing, this is not the right time. Build the habit first, then learn the craft of stock picking.</p>
+
+  <div class="callout amber">
+    <div class="callout-title">⚠️ The Hard Truth About Stock Picking</div>
+    <p>Studies consistently show that around 80–90% of active fund managers fail to beat the Nifty 50 index over a 10-year period. These are professionals with research teams, Bloomberg terminals, and decades of experience. If they struggle, what does that say about a first-year student picking stocks? Start with index funds. Beat the professionals by simply copying the index.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 7 · SIP VS BUYING STOCKS</div>
+</div>
+
+<!-- ═══════════════════════════ CH 8 ═══════════════════════════ -->
+<div class="page" id="ch8">
+  <div class="chapter-label">Chapter 8</div>
+  <h2>The Power of Compounding<br>The Eighth Wonder of the World</h2>
+  <div class="chapter-line"></div>
+
+  <p>Albert Einstein supposedly called compounding "the eighth wonder of the world." Whether or not he actually said it, the math absolutely justifies the awe. Compounding is the single most powerful force available to a young investor, and the earlier you start, the more dramatically it works in your favour.</p>
+
+  <h3>What is Compounding?</h3>
+  <p>Simple interest: you earn interest only on your original amount. Compound interest: you earn interest on your interest on your interest. The earnings pile on top of each other and keep growing.</p>
+
+  <div class="analogy">
+    <strong>The snowball analogy:</strong> Imagine rolling a small snowball down a very long snowy hill. At first it's tiny. But as it rolls, it picks up more snow and gets bigger. The bigger it gets, the more snow it picks up per rotation. By the bottom of the hill, it's enormous. Your investment is the snowball. Time is the hill. Compounding is physics.
+  </div>
+
+  <h3>The Numbers That Will Blow Your Mind</h3>
+  <table class="compound-table">
+    <thead>
+      <tr><th>SIP Amount</th><th>Duration</th><th>Total Invested</th><th>Value at ~12% CAGR</th><th>Your Gain</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>₹500/month</td><td>10 years</td><td>₹60,000</td><td class="val">~₹1.16 lakh</td><td class="gain">+₹56,000</td></tr>
+      <tr><td>₹500/month</td><td>20 years</td><td>₹1.2 lakh</td><td class="val">~₹4.99 lakh</td><td class="gain">+₹3.79 lakh</td></tr>
+      <tr><td>₹500/month</td><td>30 years</td><td>₹1.8 lakh</td><td class="val">~₹17.6 lakh</td><td class="gain">+₹15.8 lakh</td></tr>
+      <tr><td>₹1,000/month</td><td>10 years</td><td>₹1.2 lakh</td><td class="val">~₹2.32 lakh</td><td class="gain">+₹1.12 lakh</td></tr>
+      <tr><td>₹1,000/month</td><td>20 years</td><td>₹2.4 lakh</td><td class="val">~₹9.99 lakh</td><td class="gain">+₹7.59 lakh</td></tr>
+      <tr><td>₹1,000/month</td><td>30 years</td><td>₹3.6 lakh</td><td class="val">~₹35 lakh</td><td class="gain">+₹31.4 lakh</td></tr>
+      <tr><td>₹3,000/month</td><td>20 years</td><td>₹7.2 lakh</td><td class="val">~₹29.9 lakh</td><td class="gain">+₹22.7 lakh</td></tr>
+      <tr><td>₹5,000/month</td><td>20 years</td><td>₹12 lakh</td><td class="val">~₹49.9 lakh</td><td class="gain">+₹37.9 lakh</td></tr>
+    </tbody>
+  </table>
+
+  <div class="disclaimer">⚠️ These numbers assume a 12% annual return and are for illustration only. Actual mutual fund returns vary. Past performance is not a guarantee of future results.</div>
+
+  <h3>The Starting Early Advantage</h3>
+  <p>This is the most important lesson in this entire guide. Consider Arjun and Priya. Arjun starts a ₹1,000/month SIP at age 22 (when he gets his first job) and invests until age 32 — just 10 years. Then he stops and lets the money sit. Priya starts a ₹1,000/month SIP at age 32 and invests until she's 62 — a full 30 years. Who has more money at 62?</p>
+
+  <p><strong>Arjun wins</strong>, despite investing for only 10 years vs Priya's 30 years. Starting 10 years earlier gave him an almost unbeatable head start. Those extra years of compounding are worth decades of extra investing later. This is why the single best financial decision you can make as a 19-year-old student is to start — even if it's just ₹500 — now.</p>
+
+  <div class="page-num">CHAPTER 8 · THE POWER OF COMPOUNDING</div>
+</div>
+
+<!-- ═══════════════════════════ CH 9 ═══════════════════════════ -->
+<div class="page" id="ch9">
+  <div class="chapter-label">Chapter 9</div>
+  <h2>What is Zerodha?</h2>
+  <div class="chapter-line"></div>
+
+  <p>Now that you understand all the "why," let's start with the "how." To invest in stocks or mutual funds in India, you need a <strong>broker</strong> — a company that acts as a middleman between you and the stock exchange. Zerodha is currently one of India's largest and most trusted brokers.</p>
+
+  <h3>Why Zerodha?</h3>
+  <ul class="bullet-list">
+    <li><strong>Zero brokerage on equity delivery</strong> — When you buy stocks for the long term (not trading), you pay ₹0 brokerage. That's actually free.</li>
+    <li><strong>Trusted and SEBI regulated</strong> — Founded in 2010 by Nithin Kamath. Millions of customers. Audited. Safe.</li>
+    <li><strong>Coin — Direct Mutual Funds</strong> — Zerodha's Coin platform lets you invest in direct mutual funds (lower cost, higher returns).</li>
+    <li><strong>Varsity — Free Education</strong> — Zerodha has a free learning platform called Varsity (zerodha.com/varsity) with some of the best financial education content in India. Completely free. Use it.</li>
+    <li><strong>Clean interface</strong> — Unlike older brokers, Zerodha's Kite and Coin apps are clean, modern, and easy to use.</li>
+  </ul>
+
+  <div class="callout blue">
+    <div class="callout-title">📌 Account Opening Cost</div>
+    <p>Opening a Zerodha account requires a one-time fee of around ₹200–300. You'll need your Aadhaar card, PAN card, and a bank account linked to UPI. KYC (verification) usually takes 1–2 business days. You can do everything online.</p>
+  </div>
+
+  <h3>SEBI — The Regulator That Protects You</h3>
+  <p>SEBI stands for Securities and Exchange Board of India. Think of SEBI as the policeman of the financial markets. It makes rules, enforces them, and ensures brokers like Zerodha are operating honestly. If Zerodha does anything fraudulent, SEBI comes down on them hard. This is why your money with a SEBI-regulated broker is far safer than any random investment scheme someone's uncle is promoting.</p>
+
+  <div class="page-num">CHAPTER 9 · WHAT IS ZERODHA?</div>
+</div>
+
+<!-- ═══════════════════════════ CH 10 ═══════════════════════════ -->
+<div class="page" id="ch10">
+  <div class="chapter-label">Chapter 10</div>
+  <h2>Kite vs Coin — Which One Do You Need?</h2>
+  <div class="chapter-line"></div>
+
+  <p>Zerodha has two main platforms, and many beginners get confused about which is for what. Let's clear this up once and for all.</p>
+
+  <div class="card-row">
+    <div class="mini-card green-card">
+      <h4>📈 Kite — For Stocks</h4>
+      <p>This is Zerodha's trading platform. Use Kite when you want to buy or sell individual company shares, trade ETFs, or (when you're experienced) get into F&O. It has charts, order types, and all the tools a stock investor needs.</p>
+    </div>
+    <div class="mini-card blue-card">
+      <h4>💰 Coin — For Mutual Funds</h4>
+      <p>This is Zerodha's mutual fund platform. Use Coin when you want to invest in mutual funds via SIP or lump sum. It gives you access to direct mutual fund plans (lower cost = higher returns for you). This is where most beginners should start.</p>
+    </div>
+  </div>
+
+  <h3>What is a Demat Account?</h3>
+  <p>When you invest, you need a safe place to store your shares and mutual fund units. This is your <strong>Demat account</strong> (Dematerialized account). Just like a bank holds your money, a Demat account holds your shares electronically. When you open a Zerodha account, a Demat account is automatically created for you. You don't have to do anything extra.</p>
+
+  <h3>As a Beginner, Start with Coin</h3>
+  <p>For the first 1–2 years of your investing journey, you probably don't need Kite at all. Start with Coin, set up a monthly SIP in a Nifty 50 index fund, and let it run. Learn how the market works while your money grows. Then, once you've built a foundation and want to explore stock picking, use Kite.</p>
+
+  <div class="page-num">CHAPTER 10 · KITE VS COIN</div>
+</div>
+
+<!-- ═══════════════════════════ CH 11 ═══════════════════════════ -->
+<div class="page" id="ch11">
+  <div class="chapter-label">Chapter 11</div>
+  <h2>Demat Account, Trading Account &amp; How They Work Together</h2>
+  <div class="chapter-line"></div>
+
+  <p>This confuses a lot of beginners, so let's break it down with a simple analogy before getting into the details.</p>
+
+  <div class="analogy">
+    <strong>The bank analogy:</strong> Your <strong>savings bank account</strong> = where your money sits. Your <strong>trading account</strong> = the shop counter where you place orders to buy/sell shares. Your <strong>Demat account</strong> = the locker where your purchased shares are stored. All three work together for the whole cycle to complete.
+  </div>
+
+  <h3>The Three Accounts You Need</h3>
+  <ul class="bullet-list">
+    <li><strong>Bank Account</strong> — You already have this. Money comes in and goes out here. Linked to your investments.</li>
+    <li><strong>Trading Account</strong> — Opened with a broker like Zerodha. Used to place buy/sell orders. Money flows from your bank to this when you invest.</li>
+    <li><strong>Demat Account</strong> — Stores your shares electronically after purchase. Managed by a Depository Participant (either CDSL or NSDL — two government-approved bodies). When you open with Zerodha, your Demat is with CDSL.</li>
+  </ul>
+
+  <h3>What Happens When You Buy a Share?</h3>
+  <ol class="steps-list">
+    <li><div class="step-num">1</div><div class="step-body"><strong>You place an order in Kite/Coin</strong><p>"Buy 5 shares of Infosys at ₹1,800 each" = ₹9,000 order</p></div></li>
+    <li><div class="step-num">2</div><div class="step-body"><strong>Zerodha routes it to the exchange</strong><p>NSE or BSE matches your buy order with someone selling</p></div></li>
+    <li><div class="step-num">3</div><div class="step-body"><strong>Settlement happens in T+1</strong><p>Your ₹9,000 leaves your account. The 5 shares arrive in your Demat account the next business day (T+1 settlement)</p></div></li>
+    <li><div class="step-num">4</div><div class="step-body"><strong>You now own the shares</strong><p>They sit in your Demat account. You can hold forever or sell whenever you want.</p></div></li>
+  </ol>
+
+  <div class="page-num">CHAPTER 11 · DEMAT & TRADING ACCOUNT</div>
+</div>
+
+<!-- ═══════════════════════════ CH 12 ═══════════════════════════ -->
+<div class="page" id="ch12">
+  <div class="chapter-label">Chapter 12</div>
+  <h2>How to Read a Mutual Fund Fact Sheet</h2>
+  <div class="chapter-line"></div>
+
+  <p>Every mutual fund publishes a document called a <strong>fact sheet</strong> every month. It tells you everything about the fund. Let's decode each section like a pro.</p>
+
+  <h3>Key Things to Look for in a Fact Sheet</h3>
+
+  <h4>1. Fund Category</h4>
+  <p>Is it a Large Cap Fund? Flexi Cap? Index Fund? This tells you what the fund invests in. As a beginner, look for Large Cap Index Funds — they're the safest and most predictable.</p>
+
+  <h4>2. AUM (Assets Under Management)</h4>
+  <p>This is the total money managed by this fund. Larger AUM (say, ₹10,000 crore+) generally means the fund is popular and trusted. Very tiny funds can have liquidity issues.</p>
+
+  <h4>3. Expense Ratio</h4>
+  <p>This is the annual fee charged by the fund house, expressed as a % of your investment. For a direct index fund, this should be below 0.2%. For active funds, it ranges from 0.5–1.5%. Lower is always better. Even 0.5% difference in expense ratio can mean lakhs of difference over 20 years due to compounding.</p>
+
+  <h4>4. 1Y / 3Y / 5Y Returns</h4>
+  <p>Past performance data. Always check 3-year and 5-year returns, not just 1-year. Anyone can have a lucky 1-year run. Consistent 5-year performance is far more meaningful. Compare against the benchmark (Nifty 50) to see if the fund manager is actually adding value.</p>
+
+  <h4>5. Portfolio Holdings (Top 10 Holdings)</h4>
+  <p>What companies does the fund actually own? For a Nifty 50 index fund, you'll see the top 10 like Reliance, HDFC Bank, Infosys, ICICI Bank etc. This gives you transparency on where your money is.</p>
+
+  <h4>6. Exit Load</h4>
+  <p>Some funds charge a penalty if you withdraw too early (usually within 1 year). For equity funds, a common exit load is 1% if you redeem within 365 days. Index funds often have 0 exit load. Know this before investing.</p>
+
+  <div class="callout blue">
+    <div class="callout-title">📌 Where to Find Fact Sheets</div>
+    <p>Visit the AMC's (fund house's) website directly. For UTI, it's utimf.com. For HDFC, it's hdfcfund.com. Also check valueresearchonline.com or mfapi.in for third-party fund data. Coin on Zerodha also shows basic fund details when you search for a fund.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 12 · HOW TO READ A MUTUAL FUND FACT SHEET</div>
+</div>
+
+<!-- ═══════════════════════════ CH 13 ═══════════════════════════ -->
+<div class="page" id="ch13">
+  <div class="chapter-label">Chapter 13</div>
+  <h2>Emergency Fund &amp; Budgeting Basics<br>Build This Before You Invest a Single Rupee</h2>
+  <div class="chapter-line"></div>
+
+  <p>Here's something most "investing guides" skip entirely, and it's actually the most important step before you start investing: <strong>build an emergency fund</strong>. No, seriously. This comes before SIPs, before stocks, before everything.</p>
+
+  <h3>What is an Emergency Fund?</h3>
+  <p>An emergency fund is 3–6 months of your essential expenses kept in a safe, liquid place (savings account or liquid fund) that you only touch in a genuine emergency — job loss, medical crisis, major unexpected expense. Not for buying a phone. Not for a trip. A genuine emergency.</p>
+
+  <div class="analogy">
+    <strong>The seatbelt analogy:</strong> You wouldn't start driving at 100 km/h without a seatbelt. The emergency fund is your financial seatbelt. Without it, any unexpected expense will force you to break your SIP or sell investments at a bad time — undoing months of disciplined investing.
+  </div>
+
+  <h3>As a Student, What Does This Look Like?</h3>
+  <p>As a student who doesn't have major financial obligations, your emergency fund doesn't need to be huge. Even ₹5,000–10,000 in a liquid fund gives you a safety buffer. As your income and responsibilities grow, build this up to 3–6 months of expenses.</p>
+
+  <h3>The 50/30/20 Budgeting Rule (Simplified)</h3>
+  <p>If you have any income (part-time, stipend, allowance), try this simple framework:</p>
+
+  <div class="card-row">
+    <div class="mini-card green-card">
+      <h4>50% — Needs</h4>
+      <p>Food, rent, transport, essential bills. Non-negotiable spending.</p>
+    </div>
+    <div class="mini-card blue-card">
+      <h4>30% — Wants</h4>
+      <p>Eating out, entertainment, shopping. Enjoyment spending.</p>
+    </div>
+  </div>
+  <div class="mini-card green-card" style="margin-top:0;">
+    <h4>20% — Savings & Investments</h4>
+    <p>First, fill emergency fund. Then start SIP. Then increase SIP over time. This 20% is your future self's salary.</p>
+  </div>
+
+  <p style="margin-top:18px;">Even if you're only getting ₹2,000/month pocket money, investing ₹400 (20%) into a SIP is a habit worth forming. The amount doesn't matter as much as the habit.</p>
+
+  <div class="page-num">CHAPTER 13 · EMERGENCY FUND & BUDGETING</div>
+</div>
+
+<!-- ═══════════════════════════ CH 14 ═══════════════════════════ -->
+<div class="page" id="ch14">
+  <div class="chapter-label">Chapter 14</div>
+  <h2>How to Set Financial Goals<br>Because Investing Without Direction is Just Gambling</h2>
+  <div class="chapter-line"></div>
+
+  <p>Random investing without clear goals is like driving a car without a destination. You'll burn fuel and go nowhere purposeful. Before you invest, know <em>why</em> you're investing. This clarity changes everything — it tells you how much to invest, for how long, in what, and whether you're on track.</p>
+
+  <h3>The SMART Goal Framework for Money</h3>
+  <ul class="bullet-list">
+    <li><strong>Specific</strong> — "I want to save money" is not a goal. "I want ₹5 lakh for an MS abroad by 2030" is.</li>
+    <li><strong>Measurable</strong> — You should be able to track progress. "I am 40% of the way to my ₹5 lakh goal."</li>
+    <li><strong>Achievable</strong> — Based on your income, is this realistic with consistent effort?</li>
+    <li><strong>Relevant</strong> — Does this goal actually matter for your life vision?</li>
+    <li><strong>Time-bound</strong> — Every goal needs a deadline. Without one, there's no urgency.</li>
+  </ul>
+
+  <h3>Match Goals to Investment Types</h3>
+  <table class="compare-table">
+    <thead>
+      <tr><th>Goal Type</th><th>Time Horizon</th><th>Best Investment Vehicle</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Phone upgrade fund</td><td>6–12 months</td><td>Liquid Fund or Savings Account</td></tr>
+      <tr><td>Trip or short goal</td><td>1–2 years</td><td>Debt Mutual Fund</td></tr>
+      <tr><td>Higher education / MS</td><td>3–5 years</td><td>Hybrid Fund or Balanced Fund</td></tr>
+      <tr class="highlight"><td>Retirement / long-term wealth</td><td>10–30 years</td><td>Nifty 50 Index Fund SIP ← this is you</td></tr>
+      <tr><td>Tax saving + investment</td><td>3+ year lock-in</td><td>ELSS (80C benefit)</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <div class="callout-title">💡 Your Goal as a Student Right Now</div>
+    <p>Your primary financial goal should be: <strong>Build the habit of investing</strong>. The actual amount is secondary. ₹500/month for 1 year is not going to make you rich. But it will train your brain to automatically save, expose you to how markets work, and give you a real portfolio you can watch and learn from. That's priceless education.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 14 · HOW TO SET FINANCIAL GOALS</div>
+</div>
+
+<!-- ═══════════════════════════ CH 15 ═══════════════════════════ -->
+<div class="page" id="ch15">
+  <div class="chapter-label">Chapter 15</div>
+  <h2>Gold vs Stocks vs FD vs Real Estate<br>The Great Indian Investment Debate</h2>
+  <div class="chapter-line"></div>
+
+  <p>This is the question every Indian family debates at dinner. Your parents probably swear by FDs. Your relatives probably brag about their land. Instagram will tell you crypto is the future. Let's settle this with actual data and clear thinking.</p>
+
+  <h3>Fixed Deposits (FD)</h3>
+  <p>The all-time favourite of Indian savers. You put money in for a fixed period, you get a fixed interest rate, and at the end you get your money back with interest. Sounds great. Here's the problem: FD interest is taxed at your income tax slab rate. If you're in the 30% bracket and your FD gives 7%, after tax you get 4.9%. Inflation is 5.5%. Real return: <strong>−0.6% per year</strong>. You're technically losing money. FDs are excellent for parking money you'll need in 1–2 years. They're terrible for building long-term wealth.</p>
+
+  <h3>Gold</h3>
+  <p>Gold has deep cultural significance in India, and it's not a bad investment either. Over 20 years, gold in India has delivered roughly 10–13% annual returns. It's a good hedge — it tends to go up when markets crash or when the rupee weakens. But here's gold's problem: it doesn't generate any income. Your gold just sits there. It doesn't pay you rent, dividends, or interest. Its return is purely based on price appreciation, which is driven by global factors you can't control. The smarter way to own gold is through <strong>Sovereign Gold Bonds (SGBs)</strong> — government-backed, give 2.5% annual interest on top of price appreciation, and have no storage risk.</p>
+
+  <h3>Real Estate</h3>
+  <p>Your family probably considers "property" the safest investment. And in some cases it is — especially if you're buying for personal use and in a growing city. But the numbers tell a more complicated story. Over the last decade, residential real estate in India delivered average price appreciation of just 3.94% per year. Add rental yield of 2.5–3%, and you're at 6–7% gross returns. Now subtract maintenance costs, property tax, broker fees when buying/selling, and the fact that you need lakhs of rupees just to enter — and real estate becomes a very illiquid, high-entry-cost investment. Not great for a student. Great for someone with capital and a long horizon in a growing city.</p>
+
+  <h3>Equities (Stocks / Mutual Funds)</h3>
+  <p>Indian equity markets (measured by Nifty 50 TRI — Total Returns Index) have delivered approximately <strong>14% CAGR over the last 20 years</strong>. Money invested in 2005 multiplied 13.7 times by 2025. Even during crashes — 2008 (−61%), 2020 COVID crash (−38%) — the market fully recovered within 1–3 years and went to new highs. The catch: you must hold through the volatility and not panic-sell.</p>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Asset</th><th>10-yr avg return</th><th>Liquidity</th><th>Min Investment</th><th>For Beginners?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Savings Account</td><td>3–3.5%</td><td>Instant</td><td>₹0</td><td class="badge a">Only for emergency</td></tr>
+      <tr><td>Fixed Deposit</td><td>6.5–7.5%</td><td>Low (penalty)</td><td>₹1,000</td><td class="badge a">Short-term parking</td></tr>
+      <tr><td>Gold (SGB)</td><td>~10–13%</td><td>Medium</td><td>₹5,000</td><td class="badge b">Small allocation ok</td></tr>
+      <tr><td>Real Estate</td><td>~6–7% total</td><td>Very Low</td><td>₹25–50 lakh+</td><td class="badge r">Not yet</td></tr>
+      <tr class="highlight"><td>Nifty 50 Index Fund (SIP)</td><td>~12–14%</td><td>High</td><td>₹500/month</td><td class="badge g">Yes! Start here</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <div class="callout-title">💡 The Smart Beginner's Allocation</div>
+    <p>As a student: 70–80% in equity index fund SIP. 10–15% in a liquid fund (emergency fund). Maybe 5–10% in gold (SGB) once you have more money. Real estate: not yet. FDs: only for goals under 2 years. This is a simple, proven starting point.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 15 · GOLD VS STOCKS VS FD VS REAL ESTATE</div>
+</div>
+
+<!-- ═══════════════════════════ CH 16 ═══════════════════════════ -->
+<div class="page" id="ch16">
+  <div class="chapter-label">Chapter 16</div>
+  <h2>Taxes on Investments — LTCG &amp; STCG<br>Explained Without the Jargon</h2>
+  <div class="chapter-line"></div>
+
+  <p>When you make money from investments — by selling shares or redeeming mutual fund units — the government wants a cut. This is called <strong>Capital Gains Tax</strong>. The amount you pay depends on how long you held the investment. This is called the "holding period." The longer you hold, the less tax you pay — the government actually rewards patience.</p>
+
+  <h3>Short-Term Capital Gains (STCG)</h3>
+  <p>If you sell equity shares or equity mutual fund units within <strong>12 months</strong> of buying them, the profit is called Short-Term Capital Gain. As of FY 2025–26, you pay <strong>20% tax</strong> on these gains (this rate was increased from 15% in the Union Budget 2024). Plus 4% Health & Education Cess. So effectively 20.8%.</p>
+
+  <div class="analogy">
+    <strong>Simple example:</strong> You invest ₹10,000 in a mutual fund in January. By September (8 months later) it grows to ₹12,000. You redeem it. Profit = ₹2,000. This is STCG. Tax = 20% of ₹2,000 = ₹400.
+  </div>
+
+  <h3>Long-Term Capital Gains (LTCG)</h3>
+  <p>If you hold equity shares or equity mutual fund units for <strong>more than 12 months</strong>, the profit is called Long-Term Capital Gain. You pay <strong>12.5% tax</strong> on gains above ₹1.25 lakh per financial year. Below ₹1.25 lakh of LTCG in a year? Zero tax. This is a massive benefit for patient investors.</p>
+
+  <div class="analogy">
+    <strong>Simple example:</strong> You invest ₹1,00,000 in a mutual fund. After 2 years it's worth ₹2,20,000. Profit = ₹1,20,000. This is LTCG. Since it's below ₹1.25 lakh, you pay ZERO tax. You keep the entire ₹1,20,000 profit!
+  </div>
+
+  <table class="compare-table">
+    <thead>
+      <tr><th>Type</th><th>Holding Period</th><th>Tax Rate (FY 2025-26)</th><th>Exemption</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>STCG — Equity Funds/Stocks</td><td>≤ 12 months</td><td>20% (+ 4% cess)</td><td>None</td></tr>
+      <tr class="highlight"><td>LTCG — Equity Funds/Stocks</td><td>&gt; 12 months</td><td>12.5% (+ cess)</td><td>₹1.25 lakh/year free!</td></tr>
+      <tr><td>Debt Fund Gains (post Apr 2023)</td><td>Any duration</td><td>Your income tax slab rate</td><td>None</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The SIP Tax Trick — Read This Carefully</h3>
+  <p>With SIPs, each monthly instalment is treated as a <em>separate purchase</em> with its own holding period. This means when you redeem a SIP after 2 years, the first few months' instalments are LTCG, but the recent months' instalments might still be STCG (if less than 12 months old). This is why it's best to redeem SIP investments only when all instalments are at least 12 months old.</p>
+
+  <div class="callout green">
+    <div class="callout-title">💡 The Tax-Free Trick (Legal!)</div>
+    <p>Every year, you can book up to ₹1.25 lakh of equity LTCG completely tax-free. So every February–March, sell enough equity investments to realize ₹1.25 lakh in gains, and immediately reinvest (called "tax harvesting"). You reset your purchase price to the current (higher) value and your future LTCG is reduced. It's legal, it's smart, and it can save you significant tax over the years.</p>
+  </div>
+
+  <div class="disclaimer">⚠️ Tax rules change with every Union Budget. Always verify current rules on the Income Tax Department website (incometax.gov.in) or consult a CA before making tax-related decisions.</div>
+
+  <div class="page-num">CHAPTER 16 · TAXES — LTCG & STCG</div>
+</div>
+
+<!-- ═══════════════════════════ CH 17 ═══════════════════════════ -->
+<div class="page" id="ch17">
+  <div class="chapter-label">Chapter 17</div>
+  <h2>Common Beginner Mistakes<br>Learn From Others' Expensive Errors</h2>
+  <div class="chapter-line"></div>
+
+  <p>The path to financial success is well-worn. So is the path to financial mistakes. Here are the most common errors beginners make, and exactly how to avoid them.</p>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <h4>✓ DO These Things</h4>
+      <ul>
+        <li>Start with ₹500–1000/month, no matter how small</li>
+        <li>Stay invested through market crashes</li>
+        <li>Choose Direct Growth plans on Coin</li>
+        <li>Build an emergency fund first</li>
+        <li>Increase SIP as your income grows</li>
+        <li>Learn from Zerodha Varsity (free)</li>
+        <li>Review portfolio once a year, not daily</li>
+        <li>Invest for 10+ years minimum</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h4>✗ AVOID These Mistakes</h4>
+      <ul>
+        <li>Checking your portfolio every day (anxiety trap)</li>
+        <li>Stopping SIP when market falls</li>
+        <li>Chasing "hot" funds that did well last year</li>
+        <li>Listening to random stock tips (WhatsApp, aunties)</li>
+        <li>Investing in F&O or intraday before learning</li>
+        <li>Buying IPOs blindly because of hype</li>
+        <li>Timing the market ("I'll invest when market falls")</li>
+        <li>Investing money you might need in 6 months</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>The Biggest Mistake: Waiting for the "Right Time"</h3>
+  <p>This is the mistake that costs people the most money — not in losses, but in missed gains. "I'll start investing once the market corrects." "I'll wait until I get a job." "I'll start next month." Next month becomes next year becomes next decade. Every year you wait, you lose the most powerful resource in investing: time. There is no perfect time. The best time to start was yesterday. The second best time is today.</p>
+
+  <h3>The FOMO Trap — Stock Tips and Hot IPOs</h3>
+  <p>Social media, WhatsApp groups, and friends will always be promoting the latest hot stock or IPO. Paytm IPO came at ₹2,150. Within 1 year it fell to ₹500 — a 77% crash. Thousands of retail investors lost money chasing the hype. Before investing in any individual stock or IPO, ask: do I understand this company's business? Do I know how it makes money? If the answer is no, don't invest. Your mutual fund SIP doesn't have this risk because you're diversified across 50 companies.</p>
+
+  <div class="callout red">
+    <div class="callout-title">🚨 Absolute Red Flags — Run Away From These</div>
+    <p>Any scheme promising "guaranteed 30% returns" or "double your money in 6 months." No legitimate investment can guarantee returns like this. These are Ponzi schemes. In India, there have been massive Ponzi schemes that destroyed families' savings. If it sounds too good to be true, it is. Always. Without exception.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 17 · COMMON BEGINNER MISTAKES</div>
+</div>
+
+<!-- ═══════════════════════════ CH 18 ═══════════════════════════ -->
+<div class="page" id="ch18">
+  <div class="chapter-label">Chapter 18</div>
+  <h2>Recommended Funds for Beginners</h2>
+  <div class="chapter-line"></div>
+
+  <p>Alright, after all this theory, let's get concrete. Here are funds that are widely considered solid starting points for beginners. These are not personalized advice — they're well-researched, popular, low-cost funds that have a track record of following their benchmark. Always do your own research too.</p>
+
+  <h3>For Your Core SIP (Start Here)</h3>
+
+  <div class="mini-card green-card" style="margin-bottom:14px;">
+    <h4>⭐ UTI Nifty 50 Index Fund — Direct Growth</h4>
+    <p>The most recommended beginner fund. Tracks the Nifty 50 index. Expense ratio around 0.18%. No active management — just copies the index. If India's top 50 companies grow, you grow. Minimum SIP: ₹500/month.</p>
+  </div>
+
+  <div class="mini-card blue-card" style="margin-bottom:14px;">
+    <h4>HDFC Nifty 50 Index Fund — Direct Growth</h4>
+    <p>Essentially the same as UTI — both track Nifty 50. Expense ratio around 0.20%. Either UTI or HDFC is a perfectly fine choice. You can't go wrong with either.</p>
+  </div>
+
+  <div class="mini-card blue-card" style="margin-bottom:14px;">
+    <h4>Parag Parikh Flexi Cap Fund — Direct Growth</h4>
+    <p>For slightly more experienced investors. This actively managed fund invests across Indian and some international companies. Known for its honest fund management and long-term thinking. Higher expense ratio (~0.6%) but has a good track record.</p>
+  </div>
+
+  <h3>For Tax Saving (80C Benefit)</h3>
+  <div class="mini-card amber-card" style="margin-bottom:14px;">
+    <h4>Mirae Asset ELSS Tax Saver Fund — Direct Growth</h4>
+    <p>If you need to save income tax under Section 80C, ELSS funds like this one give you both tax saving and equity returns. 3-year lock-in. Once you start earning and are in a tax bracket, consider this.</p>
+  </div>
+
+  <div class="disclaimer">⚠️ These fund suggestions are for educational purposes only and reflect general beginner suitability as of 2025-26. Mutual fund investments are subject to market risks. Past performance does not guarantee future results. Always read the offer document and consider your personal financial situation before investing.</div>
+
+  <div class="page-num">CHAPTER 18 · RECOMMENDED FUNDS</div>
+</div>
+
+<!-- ═══════════════════════════ CH 19 ═══════════════════════════ -->
+<div class="page" id="ch19">
+  <div class="chapter-label">Chapter 19</div>
+  <h2>How to Actually Start Your First SIP<br>Step-by-Step, Nothing Skipped</h2>
+  <div class="chapter-line"></div>
+
+  <p>No more theory. Let's do this. Here is the complete, nothing-skipped guide to starting your first SIP.</p>
+
+  <ol class="steps-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <strong>Get Your Documents Ready</strong>
+        <p>You need: PAN card (or PAN number), Aadhaar card (linked to your mobile number), bank account details (account number + IFSC), a phone with internet. That's it.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <strong>Open a Zerodha Account</strong>
+        <p>Go to zerodha.com/open-account. Fill in your details. Upload PAN and Aadhaar photos. Complete video KYC (just show your face and PAN card on camera). Pay the ₹200 account opening fee. Done.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <strong>Wait 1–2 Days for Account Activation</strong>
+        <p>You'll get your Zerodha client ID and password via email. Log in to zerodha.com or the Kite app. Your Demat account is ready.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <strong>Open Coin (coin.zerodha.com)</strong>
+        <p>Log in using your Zerodha credentials. Coin is where you'll manage mutual funds. It may ask you to do a one-time setup linking your bank — follow the steps.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <strong>Search for Your Fund</strong>
+        <p>Type "UTI Nifty 50 Index" in the search bar. Select "UTI Nifty 50 Index Fund — Direct Plan — Growth Option." NOT the regular plan. NOT the IDCW option.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <strong>Set Up SIP</strong>
+        <p>Click "Start SIP." Enter your amount (₹500 minimum). Choose a date (5th or 10th of month is common). Choose duration (select "ongoing" or set it for several years).</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">7</div>
+      <div class="step-body">
+        <strong>Set Up AutoPay</strong>
+        <p>Register your bank for AutoPay via UPI or NACH mandate. This ensures money is automatically debited each month without you needing to manually approve. This step is crucial — manual SIPs get missed. Automate it.</p>
+      </div>
+    </li>
+    <li>
+      <div class="step-num">8</div>
+      <div class="step-body">
+        <strong>You're Done — Now Leave It Alone</strong>
+        <p>Seriously. Don't check it every day. Check once a month at most. Let it run. Market will go up and down. Your SIP will keep buying. In 5–10 years, you'll be very glad you started today.</p>
+      </div>
+    </li>
+  </ol>
+
+  <div class="page-num">CHAPTER 19 · HOW TO START YOUR FIRST SIP</div>
+</div>
+
+<!-- ═══════════════════════════ CH 20 ═══════════════════════════ -->
+<div class="page" id="ch20">
+  <div class="chapter-label">Chapter 20</div>
+  <h2>Your Roadmap as an ECE Student<br>A Realistic, Year-by-Year Plan</h2>
+  <div class="chapter-line"></div>
+
+  <p>Here's a realistic, honest roadmap designed specifically for you — an ECE student at CET with a passion for tech and robotics, just starting out.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Now (Year 1–2 of B.Tech)</h4>
+      <p>Focus 80% on academics and skill building — this directly determines your starting salary. Open a Zerodha account. Start a ₹500/month SIP in UTI Nifty 50 Index Fund. Read Zerodha Varsity (free) to learn more. Keep checking this guide as a reference.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Year 2–3 of B.Tech</h4>
+      <p>If you have any income (internship, freelance, part-time), increase SIP to ₹1,000–2,000/month. Build your emergency fund (₹5,000–10,000 in a liquid fund). Learn the basics of reading a balance sheet and P&L for fun. Explore Zerodha Kite — just look, don't invest yet.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>Year 4 — Placements</h4>
+      <p>You'll likely get a job offer with a decent package (ECE from CET is solid). The day you get your offer letter, decide your SIP amount for when you join. Most people increase lifestyle first and invest later. You should flip this — automate investments first, spend the rest.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>First Job (Year 1 of Career)</h4>
+      <p>Increase SIP to ₹3,000–5,000/month. Build emergency fund to 3 months salary. Start an ELSS fund if you need to save tax under 80C. Begin learning about direct stock investing — Zerodha Varsity modules 3 and 4 are excellent for this.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>3–5 Years Into Career</h4>
+      <p>SIP at ₹10,000+/month. Diversify: add one more fund (maybe a mid-cap or Parag Parikh). Start researching individual stocks if interested. By now, compound interest is visibly working — your portfolio feels like it's growing on its own.</p>
+    </div>
+    <div class="timeline-item">
+      <h4>10 Years From Now</h4>
+      <p>If you started a ₹1,000/month SIP at 19 and increased it over time, you'll likely have a portfolio worth ₹15–25 lakh or more. You'll understand markets deeply. You'll be decades ahead of peers who start at 30. You'll probably look back at this guide and smile.</p>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <div class="callout-title">💡 The Final Reminder That Ties Everything Together</div>
+    <p>Investing is not about being smart. It's about being consistent. The person who invests ₹500 every month without fail for 20 years will beat the brilliant analyst who invests erratically and panics at every crash. Make it automatic. Make it boring. Let time and compounding do the work. Your job is just to not stop.</p>
+  </div>
+
+  <div class="page-num">CHAPTER 20 · YOUR ROADMAP</div>
+</div>
+
+<!-- ═══════════════════════════ QUIZ ═══════════════════════════ -->
+<div class="page" id="quiz">
+  <div class="chapter-label">Final Quiz</div>
+  <h2>Test What You've Learned</h2>
+  <div class="chapter-line"></div>
+
+  <div class="progress-wrap"><div class="progress-fill" id="progressBar" style="width:0%"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 10 answered</div>
+
+  <div class="quiz-block" data-q="1">
+    <div class="quiz-q">Q1. If inflation is 6% and your savings account gives 3.5% interest, what is your real return?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">+9.5% (you add them)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">+3.5% (just the interest)</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">−2.5% (you're losing purchasing power)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">0% (they cancel out)</button>
+    </div>
+    <div class="quiz-feedback">Real return = Nominal return − Inflation = 3.5% − 6% = −2.5%. Your money grows in number but loses in buying power. This is why beating inflation matters.</div>
+  </div>
+
+  <div class="quiz-block" data-q="2">
+    <div class="quiz-q">Q2. What does BSE stand for, and how many companies does its Sensex index track?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Business Stock Exchange, 50 companies</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">Bombay Stock Exchange, 30 companies</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Bombay Stock Exchange, 50 companies</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Business Securities Exchange, 30 companies</button>
+    </div>
+    <div class="quiz-feedback">BSE = Bombay Stock Exchange (founded 1875). Its benchmark index, Sensex, tracks 30 large, well-established companies. NSE's Nifty tracks 50 companies.</div>
+  </div>
+
+  <div class="quiz-block" data-q="3">
+    <div class="quiz-q">Q3. You invest ₹1,000 via SIP for 3 months at NAVs of ₹100, ₹80, and ₹70. What is your average cost per unit?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">₹100 (first month's price)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">₹83.33 (simple average)</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">Less than ₹83.33 (SIP gives lower average through more units at lower prices)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">₹70 (lowest price)</button>
+    </div>
+    <div class="quiz-feedback">This is Rupee Cost Averaging at work. At ₹100 you get 10 units, at ₹80 you get 12.5 units, at ₹70 you get 14.3 units. Total: 36.8 units for ₹3,000. Average cost = ₹81.5, which is lower than the simple average of ₹83.33.</div>
+  </div>
+
+  <div class="quiz-block" data-q="4">
+    <div class="quiz-q">Q4. You hold an equity mutual fund for 14 months and make ₹1,20,000 profit. How much tax do you pay? (FY 2025-26)</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">₹24,000 (20% STCG on full amount)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">₹15,000 (12.5% LTCG on full amount)</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">₹0 (LTCG below ₹1.25 lakh exemption limit)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">₹12,500 (10% flat tax)</button>
+    </div>
+    <div class="quiz-feedback">Since you held for more than 12 months, this is LTCG. Your gain of ₹1,20,000 is below the ₹1.25 lakh annual exemption. So you pay ZERO tax on the full gain! This is why holding over 12 months matters so much.</div>
+  </div>
+
+  <div class="quiz-block" data-q="5">
+    <div class="quiz-q">Q5. What is the key difference between a "Direct Plan" and a "Regular Plan" mutual fund?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Direct plans invest directly in stocks, regular plans invest in bonds</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">Direct plans have no distributor commission (lower cost, higher returns for you)</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Regular plans are regulated by SEBI, direct plans are not</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">They are identical — just different names for the same product</button>
+    </div>
+    <div class="quiz-feedback">In a Regular plan, a broker/distributor gets a commission from your expense ratio. In a Direct plan, you cut out the middleman. Direct plans have a lower expense ratio, meaning more of your money stays invested and compounds. Always choose Direct.</div>
+  </div>
+
+  <div class="quiz-block" data-q="6">
+    <div class="quiz-q">Q6. Which of these should you build BEFORE starting a SIP?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">A portfolio of 10 different mutual funds</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">An emergency fund covering 3–6 months of expenses</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Deep knowledge of technical analysis</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">At least ₹1 lakh in savings</button>
+    </div>
+    <div class="quiz-feedback">The emergency fund comes first. Without it, any unexpected expense (medical bill, phone breaks, job loss) will force you to break your SIP or sell investments at the worst possible time. Your emergency fund is your financial airbag.</div>
+  </div>
+
+  <div class="quiz-block" data-q="7">
+    <div class="quiz-q">Q7. What does "Expense Ratio" mean in a mutual fund, and why does lower = better?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">The ratio of good investments to bad investments in the fund</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">The tax you pay when you exit the fund</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">The annual fee charged by the fund house, which reduces your returns</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">The minimum amount required to invest in the fund</button>
+    </div>
+    <div class="quiz-feedback">Expense ratio is the annual management fee, expressed as a percentage of your invested amount. It's deducted automatically from the NAV each year. A 1% expense ratio on ₹10,00,000 costs ₹10,000 per year. Over 20 years with compounding, this can be lakhs of rupees lost. Index funds have expense ratios as low as 0.1–0.2%. That's why they're so good for beginners.</div>
+  </div>
+
+  <div class="quiz-block" data-q="8">
+    <div class="quiz-q">Q8. The market drops 25% tomorrow. Your SIP is active. What should you do?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Stop SIP immediately to protect remaining money</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Sell everything and wait for market to recover</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">Continue SIP as planned — you're now buying more units at a 25% discount</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Switch to FD until market stabilizes</button>
+    </div>
+    <div class="quiz-feedback">A market drop is a sale on future wealth. Your SIP will now buy more units for the same ₹1,000 investment. Historically, every major market crash — 2008, 2020 — fully recovered within 1–3 years and then hit new highs. The investors who kept their SIPs running during crashes made the most money.</div>
+  </div>
+
+  <div class="quiz-block" data-q="9">
+    <div class="quiz-q">Q9. Which long-term asset class has historically given the highest real (after-inflation) returns in India?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Fixed Deposits</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Physical Gold</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Residential Real Estate</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">Equity (Nifty 50 / Stocks)</button>
+    </div>
+    <div class="quiz-feedback">The Nifty 50 TRI has delivered approximately 14% CAGR over 20 years. Gold averages 10–13%. Real estate returns around 6–7% (including rent). FDs 6–7% (but taxed at slab rate, so often negative real returns). Equities win over long periods — but require patience through volatility.</div>
+  </div>
+
+  <div class="quiz-block" data-q="10">
+    <div class="quiz-q">Q10. Which of these is the BEST first investment for an 18-year-old student with ₹500/month to spare?</div>
+    <div class="quiz-opts">
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Intraday stock trading on Kite</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Investing in the latest hot IPO</button>
+      <button class="quiz-opt" data-correct="true" onclick="answer(this)">₹500/month SIP in UTI Nifty 50 Index Fund — Direct Growth</button>
+      <button class="quiz-opt" data-correct="false" onclick="answer(this)">Waiting until you understand everything perfectly before starting</button>
+    </div>
+    <div class="quiz-feedback">The Nifty 50 Index Fund SIP is the clear answer. Low cost, diversified, no stock-picking skill required, and perfect for building the investing habit early. Starting at 18 vs 28 can mean a difference of crores at retirement, thanks to compounding. Don't wait — start now.</div>
+  </div>
+
+  <div id="finalScore" style="display:none; background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:8px; padding:24px; margin-top:24px; text-align:center;">
+    <div style="font-size:36px; font-weight:700; color:#16a34a;" id="scoreNum"></div>
+    <div style="font-family:'Helvetica Neue',sans-serif; font-size:14px; color:#555; margin-top:6px;" id="scoreMsg"></div>
+  </div>
+
+  <div class="page-num">FINAL QUIZ · THE BEGINNER'S COMPLETE INVESTING GUIDE</div>
+</div>
+
+</main>
+
+<script>
+  function toggleMenu() {
+    const btn = document.getElementById('menuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    btn.classList.toggle('open');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+  }
+  function closeMenu() {
+    document.getElementById('menuBtn').classList.remove('open');
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  }
+
+  const links = document.querySelectorAll('#sidebar a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      setTimeout(closeMenu, 200);
+    });
+  });
+
+  let answered = {};
+  const total = 10;
+
+  function answer(btn) {
+    const block = btn.closest('.quiz-block');
+    const qNum = block.dataset.q;
+    if (answered[qNum]) return;
+    answered[qNum] = btn.dataset.correct === 'true';
+
+    block.querySelectorAll('.quiz-opt').forEach(o => {
+      o.disabled = true;
+      if (o.dataset.correct === 'true') o.classList.add('correct');
+    });
+    if (btn.dataset.correct !== 'true') btn.classList.add('wrong');
+
+    const fb = block.querySelector('.quiz-feedback');
+    const isCorrect = btn.dataset.correct === 'true';
+    fb.classList.add('show', isCorrect ? 'ok' : 'no');
+    fb.textContent = (isCorrect ? '✅ Correct! ' : '❌ Not quite. ') + fb.textContent;
+
+    updateProgress();
+
+    if (Object.keys(answered).length === total) showFinalScore();
+  }
+
+  function updateProgress() {
+    const done = Object.keys(answered).length;
+    document.getElementById('progressBar').style.width = Math.round((done / total) * 100) + '%';
+    document.getElementById('progressLabel').textContent = done + ' of ' + total + ' answered';
+  }
+
+  function showFinalScore() {
+    const correct = Object.values(answered).filter(Boolean).length;
+    const el = document.getElementById('finalScore');
+    el.style.display = 'block';
+    document.getElementById('scoreNum').textContent = correct + ' / ' + total;
+    const msgs = ['Keep reading — go back to Chapter 1!','Good start. Re-read any chapters you found tricky.','Solid! You understand the basics well.','Excellent! You are genuinely ready to start investing.','Perfect score! Go open that Zerodha account right now. 🎉'];
+    const idx = correct <= 3 ? 0 : correct <= 5 ? 1 : correct <= 7 ? 2 : correct <= 9 ? 3 : 4;
+    document.getElementById('scoreMsg').textContent = msgs[idx];
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  const pages = document.querySelectorAll('.page');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    pages.forEach(p => {
+      if (window.scrollY >= p.offsetTop - 100) current = p.id;
+    });
+    links.forEach(l => {
+      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+    });
+  });
+</script>
+
+</body>
+</html>
+ENDOFFILE
+echo "Done — $(wc -c < /mnt/user-data/outputs/investing_masterguide.html) bytes"
