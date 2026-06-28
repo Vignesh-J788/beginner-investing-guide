@@ -604,6 +604,64 @@ cat > /mnt/user-data/outputs/investing_masterguide.html << 'ENDOFFILE'
     .compare-table { font-size: 12px; }
     .compare-table th, .compare-table td { padding: 9px 10px; }
   }
+
+ /* ---------- Theme Variables ---------- */
+:root {
+    --bg: #ffffff;
+    --text: #222222;
+    --card: #f5f5f5;
+    --border: #dddddd;
+    --primary: #2563eb;
+}
+
+body.dark {
+    --bg: #0d1117;
+    --text: #e6edf3;
+    --card: #161b22;
+    --border: #30363d;
+    --primary: #58a6ff;
+}
+
+/* ---------- Apply Variables ---------- */
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: .3s;
+}
+
+.card,
+.container,
+section,
+.box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: .3s;
+}
+
+h1,h2,h3,h4,p,li,span {
+    color: var(--text);
+}
+
+a{
+    color:var(--primary);
+}
+
+/* ---------- Toggle Button ---------- */
+
+#theme-toggle{
+    position:fixed;
+    top:20px;
+    right:20px;
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    background:#2563eb;
+    color:white;
+    z-index:999;
+}
 </style>
 </head>
 <body>
