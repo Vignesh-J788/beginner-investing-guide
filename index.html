@@ -662,6 +662,44 @@ a{
     color:white;
     z-index:999;
 }
+ /* ==========================
+   Theme Toggle
+========================== */
+
+#theme-toggle{
+    position:fixed;
+    top:12px;
+    right:18px;
+    z-index:1000;
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:20px;
+    background:#C0001A;
+    color:white;
+}
+
+/* Light Theme */
+
+body.light{
+  --ink:#ffffff;
+  --ink2:#f7f7f7;
+  --ink3:#ececec;
+
+  --bone:#111111;
+  --bone2:#333333;
+
+  --muted:#666666;
+  --muted2:#555555;
+
+  --border:rgba(0,0,0,.12);
+  --border2:rgba(192,0,26,.3);
+
+  background:var(--ink);
+  color:var(--bone);
+}
 </style>
 </head>
  <script>
@@ -687,6 +725,7 @@ toggle.addEventListener("click", () => {
 });
 </script>
 <body>
+ <button id="theme-toggle">☀️</button>
 
 <!-- Hamburger Button -->
 <button id="menuBtn" onclick="toggleMenu()" aria-label="Open navigation menu">
@@ -1781,6 +1820,32 @@ toggle.addEventListener("click", () => {
       l.classList.toggle('active', l.getAttribute('href') === '#' + current);
     });
   });
+</script>
+ <script>
+
+const btn=document.getElementById("theme-toggle");
+
+// Load saved theme
+if(localStorage.getItem("theme")==="light"){
+    document.body.classList.add("light");
+    btn.innerHTML="🌙";
+}else{
+    btn.innerHTML="☀️";
+}
+
+btn.onclick=function(){
+
+    document.body.classList.toggle("light");
+
+    if(document.body.classList.contains("light")){
+        localStorage.setItem("theme","light");
+        btn.innerHTML="🌙";
+    }else{
+        localStorage.setItem("theme","dark");
+        btn.innerHTML="☀️";
+    }
+}
+
 </script>
 
 </body>
